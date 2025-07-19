@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Authors</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+</head>
+
+<body>
+<div th:insert="fragments/header :: header"></div>
+
+<div class="container my-4">
+    <div class="card shadow rounded">
+        <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white">
+            <h5 class="mb-0">Author List</h5>
+            <a href="/add-author" class="btn btn-light btn-sm">
+                <i class="fas fa-user-plus me-1"></i> Add Author
+            </a>
+        </div>
+        <div class="card-body">
+            <div th:switch="${authors}">
+                <h5 th:case="null" class="text-center text-muted">No records found!</h5>
+                <div th:case="*">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col" class="text-center">Edit</th>
+                                <th scope="col" class="text-center">Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="author : ${authors}">
+                                <td th:text="${author.id}"></td>
+                                <td th:text="${author.name}"></td>
+                                <td class="text-center">
+                                    <a th:href="@{/update-author/{id}(id=${author.id})}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-user-edit"></i>
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <a th:href="@{/remove-author/{id}(id=${author.id})}" class="btn btn-sm btn-outline-danger">
+                                        <i class="fas fa-user-times"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
